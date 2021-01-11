@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const {MONGOURI} = require('./config/keys');
 
 mongoose.connect(
-   // MONGOURI || 
+    MONGOURI || 
     'mongodb://127.0.0.1/urlShortner',{
     useNewUrlParser:true,
     useUnifiedTopology: true
