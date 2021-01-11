@@ -28,11 +28,11 @@ router.get('/:url',async (req,res)=>{
        if(url === null) return res.sendStatus(404);
 
        url.clicks++;
-       url.lastAccessed=moment().toDate();
+       url.lastAccessed=Date.now();
 
        url.save();
 
-       res.status(200).send(url.full);
+       res.status(200).send({full: url.full});
 
     }  catch (error) {
       
@@ -72,7 +72,11 @@ router.post('/url',async (req,res)=>{
         return res.status(400).send({error:"invalid short url, short URl must be a-z, A-Z, 1-9 and at least 4 digit long"});    
     }
      try {
-        const url = new Url({ full, short })
+        const url = new Url({ 
+            full,
+            short,
+            createdAt: moment().toDate()
+            })
         const result = await url.save()
         
         res.status(201).send(result);
